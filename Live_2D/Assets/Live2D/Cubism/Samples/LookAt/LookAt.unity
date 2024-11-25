@@ -18380,6 +18380,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1868211862}
+    - target: {fileID: 6510881225815132977, guid: affde66eb6c14204fa514ed70dadb68c, type: 3}
+      propertyPath: _maskTexture
+      value: 
+      objectReference: {fileID: 11400000, guid: 16bf142754640ab4487bb625c30931fd, type: 2}
     - target: {fileID: 6545765559723352406, guid: affde66eb6c14204fa514ed70dadb68c, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -18500,6 +18504,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 334868249893051554, guid: affde66eb6c14204fa514ed70dadb68c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1523802810}
+    - targetCorrespondingSourceObject: {fileID: 334868249893051554, guid: affde66eb6c14204fa514ed70dadb68c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1523802812}
     - targetCorrespondingSourceObject: {fileID: 2546498883755625423, guid: affde66eb6c14204fa514ed70dadb68c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1894193127}
@@ -20986,6 +20993,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BlendMode: 2
   EyeOpening: 1
+--- !u!114 &1523802812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1523802794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af579048e5b1505448444a7f10dcabca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!43 &1527158071
 Mesh:
   m_ObjectHideFlags: 0
