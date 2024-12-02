@@ -10,8 +10,9 @@ public class MotionHotkey : MonoBehaviour
 {
     private CubismModel model;
     public CubismParameter[] parameters;
-    private CubismFadeController fadeController;
     public Dictionary<string, CubismParameter> lookupTable = new();
+    
+    private CubismFadeController fadeController;
     
     [Serializable]
     public struct Motion
@@ -29,47 +30,52 @@ public class MotionHotkey : MonoBehaviour
 
     private void Start()
     {
-        if (TryGetComponent(out model))
+        if (!TryGetComponent(out model)) return;
+        
+        parameters = model.Parameters;
+        foreach (var para in parameters)
         {
-            parameters = model.Parameters;
-            foreach (var para in parameters)
+            lookupTable.Add(para.Id, para);
+        }
+            
+        int length = fadeController.CubismFadeMotionList.CubismFadeMotionObjects.Length;
+            
+        motionList = new List<Motion>();
+        
+        for (int i = 0; i < length; i++)
+        {
+            CubismFadeMotionData data = fadeController.CubismFadeMotionList.CubismFadeMotionObjects[i];
+            int paramerterCount = data.ParameterIds.Length;
+            
+            Motion motion = new Motion
             {
-                lookupTable.Add(para.Id, para);
-            }
-            int length = fadeController.CubismFadeMotionList.CubismFadeMotionObjects.Length;
-            motionList = new List<Motion>();
-            for (int i = 0; i < length; i++)
+                Parameters = new CubismParameter[paramerterCount],
+                Curves = new AnimationCurve[paramerterCount]
+            };
+            
+            for (int j = 0; j < paramerterCount; j++)
             {
-                Motion motion = new Motion();
-                CubismFadeMotionData data = fadeController.CubismFadeMotionList.CubismFadeMotionObjects[i];
-                int paramerterCount = data.ParameterIds.Length;
-                motion.Parameters = new CubismParameter[paramerterCount];
-                motion.Curves = new AnimationCurve[paramerterCount];
-                for (int j = 0; j < paramerterCount; j++)
-                {
-                    string id = data.ParameterIds[j];
-                    AnimationCurve curve = data.ParameterCurves[j];
-                    if (lookupTable.TryGetValue(id, out CubismParameter para) && para!=null)
-                    {
-                        motion.Parameters[j] = para;
-                        motion.Curves[j] = curve;
-                    }
-                }
-                motionList.Add(motion);
+                string id = data.ParameterIds[j];
+                AnimationCurve curve = data.ParameterCurves[j];
+                if (!lookupTable.TryGetValue(id, out CubismParameter para) || para == null) continue;
+                motion.Parameters[j] = para;
+                motion.Curves[j] = curve;
             }
+            
+            motionList.Add(motion);
         }
     }
 
     public void PlayMotion(int index)
     {
-        if (index >= 0 && index < motionList.Count)
+        if (index < 0 || index >= motionList.Count) return;
+        
+        StopAllCoroutines();
+        
+        Motion motion = motionList[index];
+        for (int i = 0; i < motion.Parameters.Length; i++)
         {
-            StopAllCoroutines();
-            Motion motion = motionList[index];
-            for (int i = 0; i < motion.Parameters.Length; i++)
-            {
-                StartCoroutine(PlayMotion(motion.Parameters[i], motion.Curves[i]));
-            }
+            StartCoroutine(PlayMotion(motion.Parameters[i], motion.Curves[i]));
         }
     }
 
