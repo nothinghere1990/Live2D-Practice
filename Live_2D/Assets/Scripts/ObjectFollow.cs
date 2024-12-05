@@ -74,7 +74,7 @@ public class ObjectFollow : MonoBehaviour
                 }
 
                 closestPoint = selectedDrawable.VertexPositions[closestPointIndex];
-                closestPoint.x *= transform.lossyScale.x;
+                closestPoint.x *= transform.lossyScale.x;//Closest point move with scale.
                 closestPoint.y *= transform.lossyScale.y;
                 closestPoint.z = _camera.nearClipPlane;
 
@@ -90,20 +90,25 @@ public class ObjectFollow : MonoBehaviour
             else print("miss");
         }
 
-        if (selectedDrawable!= null)
+        if (selectedDrawable != null)
         {
             closestPoint = selectedDrawable.VertexPositions[closestPointIndex];
             closestPoint.x *= transform.lossyScale.x;
             closestPoint.y *= transform.lossyScale.y;
             closestPoint.z = _camera.nearClipPlane;
+            
             farestPoint = selectedDrawable.VertexPositions[farestPointIndex];
             farestPoint.x *= transform.lossyScale.x;
             farestPoint.y *= transform.lossyScale.y;
             farestPoint.z = _camera.nearClipPlane;
 
+            
+            //Draw line from closest point to farest point.
             lineRenderer.SetPositions(new Vector3[2] { closestPoint, farestPoint });
             lineRenderer.widthMultiplier = 0.03f;
             Debug.DrawLine(closestPoint, closestPoint + startDirection, Color.blue, Time.deltaTime);
+            
+            //Draw vertex pos lines.
             int length = selectedDrawable.VertexPositions.Length;
             for (int i = 0; i < length; i++)
             {

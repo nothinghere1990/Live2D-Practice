@@ -6,6 +6,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+CubismModel
+  └── Parameters (CubismParameter[])
+        └── lookupTable (Dictionary<string, CubismParameter>)
+
+CubismFadeController
+  └── CubismFadeMotionList
+        └── CubismFadeMotionObjects (CubismFadeMotionData[])
+              ├── ParameterIds (string[])
+              └── ParameterCurves (AnimationCurve[])
+
+motionList (List<Motion>)
+  └── Motion
+        ├── Parameters (CubismParameter[])
+        └── Curves (AnimationCurve[])
+*/
+
 public class MotionHotkey : MonoBehaviour
 {
     private CubismModel model;

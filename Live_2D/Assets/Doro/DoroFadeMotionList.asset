@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 403ae2dd693bb1d4b924f6b8d206b053, type: 3}
   m_Name: DoroFadeMotionList
   m_EditorClassIdentifier: 
-  MotionInstanceIds: 
-  CubismFadeMotionObjects: []
+  MotionInstanceIds: 00000000
+  CubismFadeMotionObjects:
+  - {fileID: 11400000, guid: 4207b4c043b80f0478d0c079b3eebd93, type: 2}
